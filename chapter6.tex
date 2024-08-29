@@ -1,0 +1,132 @@
+% LaTeX source for book ``代数学方法'' in Chinese
+% Copyright 2018  李文威 (Wen-Wei Li).
+% Permission is granted to copy, distribute and/or modify this
+% document under the terms of the Creative Commons
+% Attribution 4.0 International (CC BY 4.0)
+% http://creativecommons.org/licenses/by/4.0/
+
+% To be included
+\chapter{随机积分}
+
+\begin{compactitem}
+	\item It\(\hat{o}\)积分.
+	\item It\(\hat{o}\)公式和It\(\hat{o}\)引理.
+	\item 简单微分方程的解法.
+\end{compactitem}
+
+\begin{definition}\label{def:ItoInt}\index{yitengjifen@Ito积分(Ito Integrate)}
+	设\(f\in V(0,T)\)，则\(f\)的\emph{It\(\hat{o}\)积分}定义为：
+	\begin{align*}
+		\int_0^T f(t,\omega)dB_t(w)=\underset{n\to \infty}{\lim}
+		\int_0^T \phi_n(t,\omega)dB_t(\omega)
+	\end{align*}
+	这里\(\{\phi _n\}\)是初等随机过程的序列，使得当\(n\to \infty\)时，有
+	\begin{align*}
+		E\left\{ \int_0^T[f(t,\omega)-\phi_n(t,\omega)]^2dt\right\}\to 0
+	\end{align*}
+\end{definition}
+
+\begin{definition}\label{def:ItoIntpro}\index{yitengjifenguocheng@Ito积分过程(Ito Integrate process)}
+	假设对任意实数\(T>0,X\in V^*\)，那么\(\forall t\leqslant T\),积分\(\int_0^t X(s)dB(s)\)是适定的。
+	因为对任意固定的\(t,\int_0^t X(s)dB(s)\)是一个随机变量，所以作为上限t的函数，它定义了一个随机过程
+	\(\{Y(t)\}\)，称为\emph{It\(\hat{o}\)积分过程}，其中
+	\begin{align*}
+		Y(t)=\int_0^t X(s)dB(s)
+	\end{align*}
+	可以证明，It\(\hat{o}\)积分过程存在连续的样本路径。
+\end{definition}
+
+\begin{theorem}[It\(\hat{o}\)公式]\label{prop:ItoFormula}
+	设g是有界连续函数，\(\{t_i^n\}\)是\([0,t]\)的分割，则\(\forall\theta_i^n \in (B(t_i^n),B(t^n_{i+1}))\),
+	依概率收敛意义下的极限
+	\begin{align*}
+		\underset{\delta_n \to 0}{\lim}\sum_{i=0}^{n-1}g(\theta_i^n)[B(t_{i+1}^n)-B(t_i^n)]^2=\int_0^tg[B(s)]ds
+	\end{align*}
+\end{theorem}
+
+\begin{theorem}[Brown运动的It\(\hat{o}\)公式]\label{prop:ItoFormulaofBrownProcess}
+	如果\(f\)是二次连续可微函数，则对任意\(t\)，有
+	\begin{align*}
+		f[B(t)]=f(0)+\int_0^tf'[B(s)]dB(s)+\frac{1}{2}\int_0^tf''[B(s)]ds
+	\end{align*}
+\end{theorem}
+
+\begin{definition}[It\(\hat{o}\)过程(积分形式)]\label{prop:ItoProcess(Int)}
+	如果过程\(\{Y(t),0\leqslant t\leqslant T\}\)可以表示为：
+	\begin{align*}
+		Y(t)=Y(0)+\int_0^t\mu(s)ds+\int_0^t\sigma(s)dB(s),\quad 0\leqslant t\leqslant T
+	\end{align*}
+	其中过程\(\{\mu(t)\}\)和\(\{\sigma(t)\}\)满足
+	\begin{enumerate}[\bfseries (1)]
+		\item \(\mu(t)\)是适应的并且\(\int_0^T\lvert \mu(t)\rvert dt<\infty,a.s.\);
+		\item \(\sigma(t)\in V^*\).
+	\end{enumerate}
+	则称\(\{Y(t)\}\)为\emph{It\(\hat{o}\)过程}.
+\end{definition}
+
+有时也将It\(\hat{o}\)过程记为微分形式：
+\begin{align*}
+	dY(t)=\mu(t)dt+\sigma(t)dB(t),\quad 0\leqslant y\leqslant T
+\end{align*}
+式中，函数\(\mu(t)\)称为漂移系数，\(\sigma(t)\)称为扩散系数。
+
+\begin{theorem}[It\(\hat{o}\)过程的It\(\hat{o}\)公式]\label{prop:ItoFormulaofItoProcess}
+	设\(\{X(t)\}\)是由
+	\begin{align*}
+		dX(t)=\mu(t)dt+\sigma(t)dB(t)
+	\end{align*}
+	给出的It\(\hat{o}\)过程，\(g(t,x)\)是\([0,\infty) \times  \mathbb{R} \)
+	上的二次连续可微函数，则
+	\begin{align*}
+		\{Y(t)=g[t,X(t)]\}
+	\end{align*}
+	仍为It\(\hat{o}\)过程，并且
+	\begin{align*}
+		dY(t)=\frac{\partial g}{\partial t}[t,X(t)]dt+\frac{\partial g}{\partial x}[t,X(t)]dX(t)
+		+\frac{1}{2}\frac{\partial^2 g}{\partial x^2}[t,X(t)][dX(t)]^2
+	\end{align*}
+	可以简化为：
+	\begin{align*}
+		dY(t)dt=\{g'[X(t)]\mu(t)+\frac{1}{2}g''[X(t)]\sigma^2(t)\}dt+g'[X(t)]\sigma(t)dB(t)
+	\end{align*}
+\end{theorem}
+
+\begin{Exercises}
+	\item 求\(d(e^{B(t)})\)
+	\vspace{15em}
+	\item 求解Ornstein-Uhlenbeck方程
+	\begin{align*}
+		dX_t=-\mu X_tdt+\sigma dB_t
+	\end{align*}。
+	其中\(\mu,\sigma\)为常数。
+	\newpage
+	\item 考虑群体增长模型
+	\begin{align*}
+		\frac{dN_t}{dt}=a_tN_t
+	\end{align*}
+	其中\(N_0\)已知，\(a_t=r_t+\alpha B_t\)，\(r_t\)为增长率，假设为常数\(r\)，\(\alpha\)为常数，\(B_t\)为Brown运动。可以将其化为随机微分方程的形式
+	\begin{align*}
+		dN_t=rN_tdt+\alpha N_tdB_t
+	\end{align*}
+	这种类型的方程被称为集合随机微分方程，试求解它。
+	\newpage
+	\item 设\(X(t)\)具有随机微分形式
+	\begin{align*}
+		dX(t)=(bX(t)+c)dt+2\sqrt{X(t)}dB(t)
+	\end{align*}
+	并假定\(X(t)\geqslant0\)，试找出过程\(\{Y(t)=\sqrt{X(t)}\}\)的随机微分形式。
+	\newpage
+	\item 利用It\(\hat{o}\)公式证明
+	\begin{align*}
+		\int_{0}^{t}B^2(s)ds=\frac{1}{3}B^3(t)-\int_{0}^{t}B(s)ds
+	\end{align*}
+	\vspace{15em}
+	\item 设\(\{X(t),Y(t)\}\)是It\(\hat{o}\)过程,试证
+	\begin{align*}
+		d(X(t)Y(t))=X(t)dY(t)+Y(t)dX(t)+dX(t)\cdot dY(t)
+	\end{align*}
+	由此导出下面的分部积分公式
+	\begin{align*}
+		\int_{0}^{t}X(s)dY(s)=X(t)Y(t)-X(0)Y(0)-\int_{0}^{t}Y(s)dX(s)-\int_{0}^{t}dX(s)\cdot dY(s)
+	\end{align*}
+\end{Exercises}

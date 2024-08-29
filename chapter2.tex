@@ -1,0 +1,137 @@
+% LaTeX source for book ``代数学方法'' in Chinese
+% Copyright 2018  李文威 (Wen-Wei Li).
+% Permission is granted to copy, distribute and/or modify this
+% document under the terms of the Creative Commons
+% Attribution 4.0 International (CC BY 4.0)
+% http://creativecommons.org/licenses/by/4.0/
+
+% To be included
+\chapter{Poisson过程}
+
+\begin{compactitem}
+	\item 计数过程．
+	\item Poisson过程的定义.
+	\item 事件发生时间和事件发生间隔的分布．
+\end{compactitem}
+
+\section{计数过程}\label{sec:CounProc}
+
+\begin{definition}\label{def:cont-proc}\index{jishuguocheng@计数过程 (Counting Process)}
+	计数过程\(\{N(t)\}\)表示从0到t时刻某特定事件A发生的次数，则随机过程\(\{N(t),t\geqslant 0\}\)称为\emph{计数过程}
+\end{definition}
+
+计数过程具有两个特点：
+\begin{enumerate}[\bfseries (1)]
+	\item \(N(t)\geqslant 0\)且取值为整数;
+	\item 当\(s<t\)时，\(N(s)\leqslant N(t)\)，且\(N(t)-N(s)\)表示\((s,t]\)时间内事件A发生的次数。
+\end{enumerate}
+
+上一章中的独立增量和平稳增量是某些计数过程具有的主要性质。
+
+\section{Poisson过程}
+
+
+\begin{definition}\label{def:Pois-Proc}\index{poissonguocheng@Poisson过程 (Poisson Processes)}
+	计数过程\(N(t),t\geqslant 0\)则称为参数为\(\lambda (\lambda >0 )\)的\emph{Possion过程}，如果
+	\begin{enumerate}[\bfseries (1)]
+		\item \(N(0)=0\)
+		\item 过程具有独立增量
+		\item 在任意长度为t的时间区间中事件发生次数服从均值为\(\lambda t\)的Poission分布，即对一切\(s\geqslant 0,t>0\)，有\begin{align*}P\{N(t+s)-N(s)=n\}=e^{-\lambda t}\frac{(\lambda t)^n}{n!},\quad n=0,1,2,\cdots\end{align*}
+	\end{enumerate}
+\end{definition}
+
+由定义2.2(3)中可以发现，\(N(t+s)-N(s)\)的分布不依赖与\(s\),所以该式蕴含了过程的平稳增量性。由Poisson分布的性质知道\(E(N(t))=\lambda t\),\(\lambda\)可以看做单位时间内发生事件的平均次数，称为Poisson过程的强度或速率。
+
+\begin{definition}\label{def:Pois-Proc2}\index{poissonguocheng2@Poisson过程2 (Poisson Processes2)}
+	设\(N(t),t\geqslant 0\)是一个计数过程，它满足
+	\begin{enumerate}[\bfseries \((1)^{\prime}\)]
+		\item \{N(0)=0\};
+		\item 过程具有平稳独立增量
+		\item 存在\(\lambda>0\)，当\(h\downarrow 0\)时，有
+		      \begin{align*}
+			      P\{N(t+h)-N(t)=1\}=\lambda h+o(h)
+		      \end{align*}
+		\item 当\(h\downarrow 0\)时，有
+		      \begin{align*}
+			      P\{N(t+h)-N(t)\geqslant 2\}=o(h)
+		      \end{align*}
+	\end{enumerate}
+	则\(\{N(t),t\geqslant 0\}\)是参数为\(\lambda\)的\emph{Possion过程}。
+\end{definition}
+
+\newpage
+
+证明定义2.2与定义2.3等价：
+
+1.首先证明满足定义2.2中条件\((1)\sim (4)\)的过程满足定义2.3中条件\((1)^{\prime}\sim (4)^{\prime}\)。
+
+\((1)^{\prime}\)显然满足。
+
+根据(3)中概率分布\(P\{N(t+s)-N(t)=n\}=e^{-\lambda t}\frac{(\lambda t)^n}{n!}\)与\(s\)无关，所以\(\{N(t),t\geqslant 0\}\)是平稳增量过程，结合(2)可知\((2)'\)满足。
+
+(自己动手，结合\((1)^{\prime}\)和\((2)^{\prime}\),利用(3)推得\((3)^{\prime}\)和\((4)^{\prime}\))
+
+\vspace{15em}
+
+2.其次证明满足定义2.3中条件\((1)^{\prime}\sim (4)^{\prime}\)的过程定义2.2中条件\((1)\sim (4)\)。
+
+\((1),(2)\)显然满足。
+
+(自己动手，结合\((1)^{\prime}\)和\((2)^{\prime}\),利用\((3)^{\prime}\)和\((4)^{\prime}\)推得\((3)\))
+
+利用数学归纳法,首先求\(P\{N(t)=0\}\)：
+
+\newpage
+
+然后利用\((3)^{\prime}\)和\((4)^{\prime}\)得到\(P\{N(t)=n\}\)和\(P\{N(t)=n-1\}\)的递推关系(微分方程)；
+
+\vspace{13em}
+
+结合\((2)^{\prime}\)平稳独立增量的条件，利用数学归纳法得到\((3)\):
+
+\vspace{13em}
+
+\newpage
+
+\section{与Poisson过程相联系的分布}
+
+\begin{definition}\label{def:Tn-Xn}\index{shijianfanshengshikeyushijianfashengjiange@事件发生时刻与事件发生间隔(Tn-Xn)}
+	\begin{enumerate}[\bfseries (1)]
+		\item \emph{\(T_n\)}表示第n\(n=1,2,\cdots\)次事件发生的时刻。规定\(T_0=0\).
+		\item \emph{\(X_n\)}是第n次与第n-1次时间发生的时间间隔。
+	\end{enumerate}
+\end{definition}
+
+\begin{theorem}\label{prop:Xn}
+	\(X_n\ (n=1,2,\cdots)\)服从参数为\(\lambda\)的指数分布，且相互独立。
+\end{theorem}
+
+(动手证明它)
+
+\newpage
+\begin{theorem}\label{prop:Tn}
+	\(T_n\ (n=1,2,\cdots)\)服从参数为n和\(\lambda\)的\(\Gamma\)分布。
+\end{theorem}
+
+(动手证明它)
+
+\newpage
+
+\vspace{10em}
+
+\begin{Exercises}
+	\item 完成Poisson过程两种不同定义等价性的证明。
+	\item 设\(\{N(t),t\geqslant0\}\)是参数\(\lambda=3\)的Poisson过程。试求
+	\begin{enumerate}[\bfseries (1)]
+		\item \(P\{N(1)\leqslant3\}\);
+		\item \(P\{N(1)=1,N(3)=2\}\);
+		\item \(P\{N(1)\geqslant2|N(1)\geqslant1\}\)。
+	\end{enumerate}
+	\vspace{20em}
+	\item 对于Poisson过程\(\{N(t)\}\)，证明当\(s<t\)时,
+	\begin{align*}
+		P\{N(s)=k|N(t)=n\}={n\choose k}\left(\frac{s}{t}\right)^k\left(1-\frac{s}{t}\right)^{n-k},\quad k=0,1,2,\ldots,n
+	\end{align*}
+	\newpage
+	\item 设\(\{N_1(t)\}\)和\(\{N_2(t)\}\)分别是参数为\(\lambda_1,\lambda_2\)的Poisson过程，令\(X(t)=N_1(t)-N_2(t)\),问\(\{X(t)\}\)是否为Poisson过程，为什么？
+\end{Exercises}

@@ -1,0 +1,82 @@
+% LaTeX source for book ``代数学方法'' in Chinese
+% Copyright 2018  李文威 (Wen-Wei Li).
+% Permission is granted to copy, distribute and/or modify this
+% document under the terms of the Creative Commons
+% Attribution 4.0 International (CC BY 4.0)
+% http://creativecommons.org/licenses/by/4.0/
+
+% To be included
+\chapter{Brown运动}
+
+\begin{compactitem}
+	\item Brown运动的定义.
+	\item 正态增量、独立增量和路径连续性.
+	\item Gauss过程的特点.
+\end{compactitem}
+
+\begin{definition}\label{def:BrownMotion}\index{brownyundong@Brown运动(Brown Motion)}
+	随机过程\(\{X(t),t \geqslant 0 \}\)如果满足：
+	\begin{enumerate}[\bfseries (1)]
+		\item \(X(0)=0\);
+		\item \(\{X(t),t\geqslant 0\}\);
+		\item 对每个\(t>0,X(t)\)服从正态分布\(N(0,\sigma^2t)\)。
+	\end{enumerate}
+	则称\(X(t),t \geqslant 0\)为\textbf{Brown运动}，也称为\emph{Wiener过程},记为\(\{B(t),t\geqslant0\}\)或\(\{W(t),t\geqslant0\}\)。
+\end{definition}
+
+Brown运动\(\{B(t),t,\geqslant 0\}\)具有以下性质:
+\begin{itemize}[\bfseries (1)]
+	\item （正态增量过程）\(\forall 0\leqslant s <t,B(t)-B(s)\sim N(0,t-s)\)，即\(\{B(t)-B(s)\}\)服从均值为0，方差为\(t-s\)的正态分布。当\(s=0\)时，\(B(t)-B(0)\sim N(0,t)\)。
+	\item （独立增量）\(\forall 0\leqslant s <t,B(t)-B(s)\)独立于过程过去的状态\(B(u),0\leqslant u<s\)。
+	\item （路径的连续性）\(\{B(t)(t\geqslant0)\}\)是t的连续函数。
+\end{itemize}
+
+不失一般性，假设\(B(0)=0\)。
+
+\begin{definition}\label{def:QuadraticVariation}\index{ercibiancha@二次变差(Quadratic Variation)}
+	Brown运动的\emph{二次变差}\([B,B](t)\)定义为党\(\{t_i^n\}_{i=0}^n\)取遍\([0,t]\)的分割，且其模
+	\(\delta_n=\underset{0\leqslant i\leqslant n-1}{\max}\{t_{i+1}^{n}-t_{i}^n\}\to 0\)时，依概率收敛意义下的极限
+	\begin{align*}
+		[B,B](t)=[B,B]([0,t])=\underset{\delta_n \to 0}{\lim}\sum_{i=0}^{n-1}
+		\lvert B(t_{i+1}^n)-B(t_i^n) \rvert^2
+	\end{align*}
+\end{definition}
+
+类似的，一次变差的定义为\(\underset{\delta_n \to 0}{\lim}\sum_{i=0}^{n-1}\lvert B(t_{i+1}^n)-B(t_i^n) \rvert\)。
+
+从时刻0到时刻t对Brown运动的一次观察称为Brown运动在区间[0,T]上的一个路径或一个实现。Brown运动的几乎所有样本路径
+\(B(t)(0\leqslant t\leqslant T)\)都具有下述性质:
+\begin{enumerate}[\bfseries (1)]
+	\item 是\(t\)的连续函数;
+	\item 在任意区间(无论区间多么小)上都不是单调的；
+	\item 在任意点都不是可微的;
+	\item 在任意区间(无论区间多么小)上都是无限变差的(一次变差);
+	\item 对任意\(t\),在区间\([0,t]\)上的二次变差等于\(t\)。
+\end{enumerate}
+
+对任意过程，如果一次变差是有限值，那么二次变差一定是0。对于Brown运动，二次变差是有限值，一次变差是无穷大。
+
+\begin{theorem}[多元正态分布的性质]\label{prop:MultiNormDist}
+	设\(X\sim \mathcal{N}(\mu_1,\sigma^2_1),Y\sim \mathcal{N}(\mu_2,\sigma_2^2)\)是相互独立的，
+	则\((X+Y)\sim \mathcal{N}(\boldsymbol{\mu},\boldsymbol{\Sigma})\)。其中均值
+	\(\boldsymbol{\mu }=(\mu_1,\mu_1+mu_2)'\)，协方差矩阵
+	\(\boldsymbol{\Sigma}=\begin{pmatrix}
+		\sigma_1^2 & \sigma_1^2            \\
+		\sigma_1^2 & \sigma_1^2+\sigma_2^2
+	\end{pmatrix}\)。
+\end{theorem}
+
+\begin{theorem}[Brown运动是Gauss过程]\label{prop:GaussProcess}
+	Brown运动是均值函数为\(m(t)=0\)、协方差函数为\(\gamma (s,t)=\min\{t,s\}\)的Gauss过程。
+\end{theorem}
+
+\newpage
+\begin{Exercises}
+	\item 设\(\{B(t),t\geqslant0\}\)是标准Brown运动,计算\(P\{B(2)\leqslant0\}\)和\(P\{B(t),\leqslant0,t=0,1,2\}\)。
+	\vspace{30em}
+	\item 设\(\{B(t)\}\)是Brown运动，求\(B(1)+B(2)+B(3)+B(4)\)的分布。
+	\newpage
+	\item 求\(B(\frac{1}{4})+B(\frac{1}{2})+B(\frac{3}{4})+B(1)\)的分布.
+	\vspace{30em}
+	\item 求概率\(P\{\int_{0}^{1} B(t)dt>\frac{2}{\sqrt{3}}\}\)
+\end{Exercises}

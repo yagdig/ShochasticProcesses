@@ -1,0 +1,215 @@
+% LaTeX source for book ``代数学方法'' in Chinese
+% Copyright 2018  李文威 (Wen-Wei Li).
+% Permission is granted to copy, distribute and/or modify this
+% document under the terms of the Creative Commons
+% Attribution 4.0 International (CC BY 4.0)
+% http://creativecommons.org/licenses/by/4.0/
+
+% To be included
+\chapter{随机过程概述}
+
+\begin{compactitem}
+	\item 概率空间、随机变量、随机过程．
+	\item 分布函数与概度函数.
+	\item 均值函数、方差函数、协方差函数、自相关函数、特征函数．
+	\item 独立增量过程、平稳增量过程、严格平稳过程与广义（宽）平稳过程．
+\end{compactitem}
+
+\section{随机变量}\label{sec:RandomVar}
+
+\begin{definition}\label{def:prob-space}\index{gailvkongjian@概率空间 (probability space)}
+	设\((\Omega,\mathscr{F})\)是可测空间，\(P(\cdot)\)是定义在\(\mathscr{F}\)上的实值函数。如果
+	\begin{enumerate}[\bfseries (1)]
+		\item \(P(\Omega)=1\),
+		\item \(\forall A\in \mathscr{F},0\leq P(A)\leq 1\),
+		\item 对两两互不相容事件\(A_1,A_2,A_3,\dots\)(即当\(i\neq j\)时，\(A_i \cap A_j\neq \varnothing\) ).
+	\end{enumerate}
+	有\begin{align*}
+		P\left(\bigcup_{i=1}^{\infty} A_i\right)=\sum_{i=1}^{\infty}P(A_i)
+	\end{align*}
+	则称P是\((\Omega,\mathscr{F})\)上的\emph{概率}，\(\Omega,\mathscr{F},P\)称为\emph{概率空间}，
+	\(\mathscr{F}\)中的元素称为事件，P(A)称为事件A的概率。
+\end{definition}
+
+
+\begin{definition}\label{def:RV-CDF}\index{suijibianliang@随机变量 (random variable)}\index{fenbuhanshu@分布函数 (cumulative distribution function)}
+	设\((\Omega,\mathscr{F},P)\)是（完备的）概率空间，X是定义在上取值于实数集的函数，
+	如果\(\forall x \in \mathbb{R} , \{w : X(\omega)\leqslant x\}\in \mathscr{F}\),
+	则称X是\(\mathscr{F}\)上的随机变量，简称\emph{随机变量}。函数
+	\begin{align*}
+		F(x)=P\{\omega:X(\omega)\leqslant x\},\quad -\infty<x<\infty
+	\end{align*}
+	称为随机变量X的\emph{分布函数}。
+\end{definition}
+
+注意到，随机变量是定义在概率空间和实数集之间的函数(映射)。\emph{随机变量}中，\emph{随机}指的是事件在概率空间中随机发生，\emph{变量}指的是事件对应的函数值，这种对应关系(即函数)是确定的。
+
+实际中常用的随机变量有两种类型：离散型随机变量和连续性随机变量。
+
+离散型随机变量X的概率分布用如下分布列来描述：
+\begin{align*}
+	p_k=P\{X=x_k\},\quad k=1,2,\dots
+\end{align*}
+其分布函数为：
+\begin{align*}
+	F(x)=\sum_{x_k\leqslant x}p_k
+\end{align*}
+
+连续型随机变量X的概率分布用概率密度函数\(f(x)\)描述，其分布函数为：
+\begin{align*}
+	F(x)=\int_{-\infty}^{x}f(t)dt
+\end{align*}
+对于随机向量\(\mathbf{X}=(X_1,X_2,\dots,X_d)\)，它的联合分布函数定义为：
+\begin{align*}
+	F(x_1,x_2,\dots,x_d)=P\{X_1\leqslant x_1,X_2\leqslant x_2,\dots,X_d\leqslant x_d\}
+\end{align*}
+这里\(d\geqslant 1,x_k\in \mathbb{R}\ (k=1,2,\dots ,d)\)。
+
+\begin{definition}\label{def:num-feat}\index{shuzitezheng@随机变量的数字特征(number features)}
+	\begin{enumerate}[\bfseries (1)]
+		\item 取值为\({s_k}\)的离散型随机变量的\emph{数学期望}定义为：
+		      \begin{align*}
+			      E(X)=\sum_{k}s_k P\{X=s_k\}=\sum_{k}s_k p_k
+		      \end{align*}
+		      如果\(\sum\left\lvert s_k\right\rvert p_k<+\infty\)。
+		\item 连续型随机变量X的\emph{数学期望}定义为：
+		      \begin{align*}
+			      E(X)=\int_{-\infty}^{\infty}xdF(x)=\int_{-\infty}^{\infty}xf(x)dx
+		      \end{align*}
+		      如果\(\int_{-\infty}^{\infty} \left\lvert x\right\rvert dF(x)<+\infty\)。
+		      这里，\(F(x)\)是X的分布函数，\(f(x)\)是其密度函数。
+
+		      利用Riemann-Stieltjes积分，可以对离散型随机变量和连续性随机变量的期望给出一个统一的表达式：
+		      \begin{align*}
+			      E(X)=\int_{-\infty}^{+\infty}xdF(x)
+		      \end{align*}
+		\item 设X为随机变量，若\(E[X-E(x)]^2\)存在，则称\(E[X-E(x)]^2\)为X的\emph{方差}，记为Var(X),即\(Var(x)=\int_{-\infty}^{+\infty}[X-E(x)]^2dF(x)\)。
+		\item 对两个随机变量X，Y，若\(E\{[X-E(X)][Y-E(Y)]\}\)存在，则称之为X与Y的\emph{协方差}，记为Cov(X,Y),可知\(Cov(X,Y)=E(XY)-E(X)E(Y)\)。
+		\item 设X为任一随机变量，对正整数k，称\(c_k=E[X-E(X)]^k\)为X的k阶\emph{中心矩}。方差是二阶中心矩。
+		\item 设X，Y为两个随机变量，对正整数k，l，称\(E[X-E(X)]^k[Y-E(Y)]^l\)为X和Y的的k+l阶\emph{混合中心矩}。协方差是二阶混合中心矩。
+	\end{enumerate}
+\end{definition}
+
+\begin{definition}\label{def:MomGengun-CharFun}\index{jumuhanshuhetezhenghanshu@矩母函数和特征函数(Monent Generation Function and Characteristic function)}
+	\begin{enumerate}[\bfseries (1)]
+		\item 若随机变量X的分布函数为\(F(x)\)，则称
+		      \begin{align*}
+			      \phi(t)=E(e^{tX})=\int_{\Omega}e^{tX}P(d\omega)=\int_{-\infty}^{+\infty}e^{tX}dF(x)
+		      \end{align*}
+		      为X的\emph{矩母函数}。
+		\item 若随机变量X的分布函数为\(F(x)\)，则称
+		      \begin{align*}
+			      \psi(t)=E(e^{itX})=\int_{\Omega}e^{itX}P(d\omega)=\int_{-\infty}^{+\infty}e^{itX}dF(x)
+		      \end{align*}
+		      为X的\emph{特征函数}。
+	\end{enumerate}
+\end{definition}
+
+在通常遇到的情形中，对矩母函数的变量\(t\)求导运算与定义\ref{def:MomGengun-CharFun}(1)中的求期望运算可以交换次序，即求期望运算积分上下限与t无关。对\(\phi(t)\)逐次求导并计算\(t=0\)点的值就可以得到X的各阶矩：
+\begin{align*}
+	\phi '(0)   & =E(Xe^{tX})|_{t=0}=E(X)      \\
+	\phi ''(0)  & =E(X^2e^{tX})|_{t=0}=E(X^2)  \\
+	\vdots                                     \\
+	\phi ^{(n)} & =E(X^n e^{tX})|_{t=0}=E(X^n)
+\end{align*}
+但有时随机变量的矩母函数不一定存在，这种情况下，更方便的是特征函数。
+
+如果\(F(X)\)有密度\(f(x)\)，则特征函数\(\psi(t)\)就是\(f(X)\)的Fourier变换
+\begin{align*}
+	\psi(t)=\int_{-\infty}^{+\infty}e^{itX}f(x)dx
+\end{align*}
+特征函数是一个实变量的复值函数，因为\(\lvert e^{itX}\rvert=1\)，所以它对一切实数\(t\)都有定义。
+
+特征函数有几个比较重要的性质，前两个性质可以由Fourier变换的性质外推得到：
+\begin{itemize}
+	\item 线性变换的作用：设\(Y=aX+b\),则Y的特征函数是\(\psi_Y(t)=e^{ibt}\psi_X(at)\)
+	\item 两个相互独立的随机变量之和的特征函数等于它们的特征函数之积
+	\item 设随机变量X的\(n\)阶矩存在，则它的特征函数可微分\(n\)次，且当\(k\leqslant n\)时，有
+	      \begin{align*}
+		      \psi^{(n)}(0)=i^kE(X^k)
+	      \end{align*}
+\end{itemize}
+第三个性质是由于特征函数可作带皮亚诺型余项的Taylor展开：
+\begin{align*}
+	\psi(t)=1+itE(X)+\frac{(it)^2}{2!}E(X^2)+\cdots+\frac{(it)^n}{n!}E(X^n)+o(t)
+\end{align*}
+
+\begin{definition}\label{def:independent}\index{dulixing@独立性(independent)}
+	设A,B为两个事件，若\(P(A\bigcap B)=P(A)P(B)\)，则称A与B独立。更一般地，设\(A_1,A_2,\cdots,A_n\)为n个事件，
+	如果对任何\(m\leqslant n\)以及\(1\leqslant k_1 < k_2<\cdots < k_m \leqslant n\)，有
+	\begin{align*}
+		P(\bigcap_{j=1}^{m}A_{k_j})=\prod_{j=1}^{m}P(A_{k_j})
+	\end{align*}
+	则称\(A_1,A_2,\cdots,A_n\)\emph{相互独立}。\(A_1,A_2,\cdots,A_n\)两两独立不一定相互独立。
+\end{definition}
+
+\begin{theorem}[独立变量的数字特征]\label{prop:NumFeaofInd}
+	\begin{enumerate}[\bfseries (1)]
+		\item 设随机变量\(X_1,X_2,\cdots,X_n \in \mathcal{L}^1\)是独立的，则\(E\left(\prod_{k=1}^{n}X_k\right)=\prod_{k=1}^n E(X_k)\)。
+		\item 设随机变量\(X_1,X_2,\cdots,X_n \in \mathcal{L}^2\)是独立的，则\(Var\left(\prod_{k=1}^{n}X_k\right)=\prod_{k=1}^n Var(X_k)\)。
+	\end{enumerate}
+\end{theorem}
+
+\section{随机过程}
+
+\begin{definition}\label{def:StoPro}\index{suijiguocheng@随机过程(Stochastic Processes)}
+	\emph{随机过程}是概率空间\((\Omega,\mathscr{F},P)\)上的一族随机变量\(\{X(t),t\in T\}\),
+	其中T称为指标集或参数集。
+\end{definition}
+
+随机过程\(\{X(t,w),t\in T,w\in \Omega\}\)可以看成定义在\(T\times \Omega\)上的二元函数。
+对于固定的样本点\(w\in \Omega,X(t,w)\)就是定义在T上的一个函数，称为\(X(t)\)的一条样本路径
+或一个样本函数；而对于固定的时刻\(t\in T,X(t)=X(t,w)\)是概率空间\((\Omega,\mathscr{F},P)\)
+上的一个随机变量。
+
+\begin{definition}\label{def:StoProNumFea}\index{suijiguochengdeshuzitezheng@随机过程的数字特征(Numberical Features of Stochastic Processes)}
+	\begin{enumerate}[\bfseries (1)]
+		\item 称\(X(t)\)的期望\(\mu_X(t)=E[X(t)]\)为过程的\emph{均值函数}（如果存在的话）。
+		\item 如果\(\forall t\in T,E[X^2(t)]\)存在，则称随机过程\(\{X(t),t\in T\}\)为二阶矩过程。此时，称函数\(\gamma(t_1,t_2)=E\{[X(t_1)-\mu_X(t_1)][X(t_2)-\mu_X(t_2)]\}(t_1,t_2\in T)\)为过程的\emph{协方差函数}；称\(Var[X(t)]=\gamma(t,t)\)为过程的\emph{方差函数};称\(R_X(s,t)=E[X(s)X(t)],s,t\in T\)为\emph{自相关函数}。
+	\end{enumerate}
+\end{definition}
+
+由Schwartz不等式知，二阶矩过程的协方差函数和自相关函数存在，且有\(\gamma_X(s,t)=R_X(s,t)-\mu_X(s)\mu_X(t)\)。
+
+\begin{definition}\label{def:SmoothStoPro}\index{pingwensuijiguocheng@平稳随机过程(Smooth Stochastic Processes)}
+	\begin{enumerate}[\bfseries (1)]
+		\item 如果随机过程\(\{X(t),t\in T\}\)对任意的\(t_1,t_2,\cdots,t_n \in T\)和任意的h，使得\(t_i+h\in T,i=1,2,\cdots,n\)，有\((X(t_1+h),X(t_2+h),\cdots,X(t_n+h))\)与\(X(t_1),X(t_2),\cdots,X(t_n)\)具有相同的联合分布，记为：
+		      \begin{align*}
+			      (X(t_1+h),X(t_2+h),\cdots,X(t_n+h))\overset{d}{=}(X(t_1),X(t_2),\cdots,X(t_n))
+		      \end{align*}
+		      则称\(\{X(t),t\in T\}\)为\emph{严平稳过程}。
+		\item 如果随机过程\(X(t)\)的所有二阶矩都存在，并且\(E(X(t)=\mu)\)，协方差函数为\(\gamma(t,s)\)只于时间差\(t-s\)有关，则称\(\{X(t),t\in T\}\)为\emph{宽平稳过程}。
+	\end{enumerate}
+\end{definition}
+
+严平稳过程是比宽平稳过程要求严格地多的随机过程。宽平稳过程只要求前二阶矩的性质，但是严平稳过程要求具有相同的联合分布，
+也就是要求任意阶矩都相同，这在实际运用中是很少出现的。因此严格平稳过程只是作为一个标准列出，宽平稳过程是研究的更多的随机过程。
+
+对于宽平稳过程，因为\(\gamma(s,t)=\gamma(0,t-s),s,t\in \mathbb{R}\)，所以可以记为\(\gamma(t-s)\)。显然对所有t，有\(\gamma(-t)=\gamma(t)\)，即\(\gamma(t)\)的图形是关于纵轴对称的。其在0点的值就是\(X(t)\)的方差，即\(\gamma(0)=Var[X(t)]\),并且\(\lvert \gamma(t)\rvert\leqslant\gamma(0),\forall t\in T\)。
+
+\begin{definition}\label{def:SmoIndIncPro}\index{pingwendulizengliangguocheng@平稳独立增量过程(Smooth independent incremental Processes)}
+	\begin{enumerate}[\bfseries (1)]
+		\item 如果对任意\(t_1,t_2,\cdots,t_n,t\in T, t_1<t_2<\cdots<t_n\)，随机变量\(X(t_2)-X(t_1),X(t_3)-X(t_2),\cdots,X(t_n)-X(t_{n-1})\)是相互独立的，则称\(\{X(t),t\in T\}\)是\emph{独立增量过程}。
+		\item 	如果对任意\(t_1,t_2\)，有\(X(t_1+h)-X(t_1)\overset{d}{=}X(t_2+h)-X(t_2)\),则称\(\{X(t),t\in T\}\)是\emph{平稳增量过程}。
+		\item 	兼有独立增量和平稳增量的过程称为\emph{平稳独立增量过程}。
+	\end{enumerate}
+\end{definition}
+
+\begin{theorem}\label{prop:NumFeaofSmoIndIncPro}
+	设\(\{X(t),t\geqslant 0\}\)是一个独立增量过程，则\(X(t)\)具有平稳增量的充分必要条件为：其特征函数具有可乘性，即
+	\begin{align*}
+		\psi_{X(t+s)}=\psi_{X(t)}(a)\psi_{X(s)}(a)
+	\end{align*}
+\end{theorem}
+
+不难证明，平稳独立增量过程的均值函数一定是时间\(t\)的线性函数。Poisson过程和Brown运动都是这类过程。
+
+
+\begin{Exercises}
+	\item 设\(\{X(t),t\in T\}\)是一、二阶矩存在的随机过程。试证明它是宽平稳的当且仅当\(E(X(s))\)与\(E(X(s)X(s+t))\)都不依赖于\(s\)。\begin{hint}"当且仅当"的含义是"充要条件"，需要分两步证明，首先证明充分性，即\(E(X(s))\)与\(E(X(s)X(s+t))\)都不依赖于\(s\Rightarrow\)宽平稳,然后证明必要性，即宽平稳\(\Rightarrow  E(X(s))\)与\(E(X(s)X(s+t))\)都不依赖于\(s\).\end{hint}
+	\newpage
+	\item 试证，若\(Z_0,Z_1,\cdots\)为独立同分布随机变量，定义\(X_n=Z_0+Z_1+\cdots+Z_n\)，则\({X_n,n\geqslant0}\)是独立增量过程。\begin{hint}根据定义证明增量独立\end{hint}
+	\vspace{25em}
+	\item 设\(Z_1,Z_2\)是独立同分布的随机变量，服从均值为0，方差为\(\sigma^2\)的正态分布，\(\lambda\)为实数。求过程\(\{X(t),t\in T\}\)，其中\(X(t)=Z_1\cos \lambda t+Z_2 \sin \lambda t\)的均值函数和方差函数。它是宽平稳的吗？\begin{hint}根据宽平稳过程的定义求方差函数、均值函数和协方差函数\end{hint}
+	\vspace{10em}
+\end{Exercises}

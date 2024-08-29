@@ -1,0 +1,67 @@
+% LaTeX source for book ``代数学方法'' in Chinese
+% Copyright 2018  李文威 (Wen-Wei Li).
+% Permission is granted to copy, distribute and/or modify this
+% document under the terms of the Creative Commons
+% Attribution 4.0 International (CC BY 4.0)
+% http://creativecommons.org/licenses/by/4.0/
+
+% To be included
+\chapter{鞅}
+
+\begin{compactitem}
+	\item 鞅的定义．
+	\item 停时定理.
+\end{compactitem}
+
+\begin{definition}\label{def:martingale}\index{Yang@鞅 (Martingale)}
+	如果\(\{\mathscr{F}_n,n\geqslant0\}\)是一个\(\mathscr{F}\)中的单调递增的子\(\sigma\)代数流。随机过程\(\{X_n,n\geqslant0\}\)称为关于\(\{\mathscr{F}_n,n\geqslant0\}\)的\emph{鞅}，如果\(\{X_n\}\)是\(\{\mathscr{F}_n\}\)适应的，\(E(\lvert X_n\rvert)<\infty\)，并且\(\forall n\geqslant0\)，有
+	\begin{align*}
+		E(X_{n+1}|\mathscr{F}_n)=X_n
+	\end{align*}
+	适应列\(\{X_n,\mathscr{F}_n,n\geqslant0\}\)称为\emph{下鞅}，如果\(\forall n \geqslant 0\)，有
+	\begin{align*}
+		E(X_n^+)<\infty, \quad E(X_{n+1}|\mathscr{F}_n)\geqslant X_n
+	\end{align*}
+	\emph{上鞅}可类似定义。
+\end{definition}
+
+\(\sigma\)代数的概念是在提出概率空间时引入的，它是样本空间的某些子集组成的集合组。它表示这些子集可以被我们所度量，比如我们关心事件A发生的概率，我们也会去关系事件A不发生的概率，如果还有一个事件B，我们也会关心事件A和事件B同时发生的概率，等等。\(\sigma\)代数就是所有这些事件的组合的集合，这些事件的组合应当也是样本空间的子集。严格意义上，\(\sigma\)代数要满足补集运算和可数个并集运算的封闭性。
+
+\(\sigma\)域流表示随时间演化的信息流，随机变量随着时间的增加产生更多的信息。\(\sigma\)域流需要满足信息随时间只增不减，以及\(\sigma\)代数的可测性。
+
+不懂这些数学概念并不影响做题，因为通常情况下，\(\sigma\)代数流的要求都可以满足。但是需要知道，\textbf{鞅}是定义在一种规则(或信息)下的，在这个规则(或信息)下，随机过程的条件期望满足一些性质，离开了这个规则(或信息)，鞅的定义便不存在。在鞅的定义中，条件期望所满足的条件，是用来描述这种规则(或信息)的。
+
+\begin{theorem}[停时定理]\label{prop:Downtime}
+	设\(\{X_n,n\geqslant 0\}\)是一个随机变量序列，称随机函数T是关于\(\{X_n,n\geqslant 0\}\)的\emph{停时}，如果T在\(\mathbb{Z^+}\)中取值，且对每个\(n\geqslant 0,\{T=n\}\in \sigma(X_0,X_1,\cdots,X_n)\)。
+
+	如果\(\{X_n,n\geqslant0\}\)是关于\(\{\mathscr{F}_n=\sigma(X_0,X_1,\cdots,X_n)\}\)的鞅，T是停时且满足
+	\begin{enumerate}[\bfseries (1)]
+		\item \(P\{T<\infty\}\),
+		\item \(E(|M_T|)<+\infty\),
+		\item \(\lim_{n\to \infty}E(|M_n|I_{\{T>n\}})=0\)
+	\end{enumerate}
+	则有
+	\begin{align*}
+		E(M_T)=E(M_0)
+	\end{align*}
+\end{theorem}
+
+由定义可以发现\(\{T=n\}\)或\(\{T\neq n\}\)都应当由\(n\)时刻及其之前的信息完全确定，而不需要也无法借助将来的情况。借助赌博的例子，赌博者何时决定停止赌博只能以他已经赌过的结果为依据，而不能说，如果下一次要输，我现在就停止赌博，这时对停止时刻T的第一个要求：它必须是一个停时。
+
+\begin{Exercises}
+	\item 设\(Y_0,Y_1,Y_2,\cdots\)是一系列独立随机变量且\(E\lvert Y_n\rvert<+\infty,EY_n=0\)。令\(X_n=\sum_{i=0}^{n}Y_i,n=0,1,2,\cdots,\mathscr{F}_n=\sigma\{Y_i,i=0,1,2,\cdots,n\}\),则\(\{X_n,\mathscr{F}_n\}\)是一个鞅。
+	\newpage
+	\item 设\(Y_0,Y_1,Y_2,\ldots ,Y_n\)如上题假定，另外设\(EY^2_n=\sigma^2,n=1,2,\ldots,\)令\(Z_0,Z_n=\left(\sum_{i=1}^{n}Y_i\right)^2-n\sigma^2\)，那么\(\{Z_n,\mathscr{F}_n\}\)是一个鞅。
+	\vspace{30em}
+	\item 令\(X_0,X_1,\cdots\)表示分支过程各代的个体数，\(X_0=1\)，任意一个个体生育后代的分布有均值\(\mu\)。证明\(\{M_n=\mu^{-n}X_n\}\)是一个关于\(X_0,X_1,\cdots\)的鞅。
+	\newpage
+	\item 考虑一个在整数上的随机游动模型，设向右移动的概率\(p<\frac{1}{2}\),向左移动的概率为\(1-p,S_n\)表示时刻n所处的位置，假定\(S_0=a,0<a<N\)。
+	\begin{enumerate}[\bfseries (1)]
+		\item 证明：\(\{M_n=\left(\frac{1-p}{p}\right)^{S_n}\}\)是鞅；
+		\item 令T表示随机游动第一次到达0或N的时刻，即
+		      \begin{align*}
+			      T=\min\{n:S_n=0orN\}
+		      \end{align*}
+		      利用鞅停时定理，求出\(P\{S_T=0\}\)。
+	\end{enumerate}
+\end{Exercises}
